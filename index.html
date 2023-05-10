@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이미지 검색 api 이용</title>
+</head>
+<body>
+    <div id="imgbox"></div>
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+    <script>
+        kakaoImgApp();
+        function kakaoImgApp(){
+            $.ajax({
+                type : "GET",
+                url : "https://dapi.kakao.com/v2/search/image",
+                headers : {
+                "Authorization": "KakaoAK 4a2ed0f07b811798b17693c4f3eb82ce"
+                },
+                data :{
+                    "query" : "카리나",
+                    "size" : 5
+                },
+                success : function (data){
+                    //console.log(data);
+                    $(data.documents).each(function(i){
+                        $('#imgbox').append(`<img src ="${this.image_url}"/>`)
+                    });
+                },
+                error : function(xhr, textStatus){
+                    console.log(xhr.responseText);
+                    console.log("에러");
+                    return;
+                }
+            })
+        }
+
+    </script>
+</body>
+</html>
